@@ -1,0 +1,17 @@
+*.class
+*.dex
+*.war
+*.ear
+*.apk
+
+# ignore Thumbs.db #
+Thumbs.db
+
+bin/
+bin
+gen/
+release/
+release
+gen
+.metadata/
+.metadata
