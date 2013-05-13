@@ -1,7 +1,6 @@
 package com.tdtech.wheeledmadness.utils;
 
 import org.jbox2d.common.MathUtils;
-import org.jbox2d.common.Settings;
 import org.jbox2d.common.Vec2;
 
 public class XMath {

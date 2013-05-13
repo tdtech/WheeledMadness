@@ -1,9 +1,6 @@
 package com.tdtech.wheeledmadness.world.hud;
 
 import org.andengine.engine.camera.hud.HUD;
-import org.andengine.engine.camera.hud.controls.AnalogOnScreenControl;
-import org.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener;
-import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.tdtech.wheeledmadness.world.WorldCamera;

@@ -11,7 +11,7 @@ import org.andengine.util.progress.IProgressListener;
 
 import com.tdtech.wheeledmadness.world.WorldCamera;
 
-public class WheeledMadnessGameActivity extends SimpleAsyncGameActivity {
+public class WMGameActivity extends SimpleAsyncGameActivity {
 
     public static final int FPS = 30;
     
