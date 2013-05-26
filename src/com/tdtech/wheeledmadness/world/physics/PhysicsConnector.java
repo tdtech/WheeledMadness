@@ -8,8 +8,8 @@ import org.jbox2d.dynamics.Body;
 
 class PhysicsConnector {
     
-    public static final float METER_TO_PIXEL_RATIO = 32.0f;
-    public static final float PIXEL_TO_METER_RATIO = 1 / METER_TO_PIXEL_RATIO;
+    static final float METER_TO_PIXEL_RATIO = 32.0f;
+    static final float PIXEL_TO_METER_RATIO = 1 / METER_TO_PIXEL_RATIO;
     
     private final IShape mShape;
     private final Body mBody;

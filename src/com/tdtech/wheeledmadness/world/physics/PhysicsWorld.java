@@ -126,7 +126,7 @@ public class PhysicsWorld implements ContactListener,
     
     private static final float STEP_TIME = 1.0f / WMGameActivity.FPS;
     
-    private static final int DEFAULT_CONNECTORS_CAPACITY = 64;
+    private static final int CONNECTORS_INITIAL_CAPACITY = 64;
     
     private static final Vec2 ZERO_VECTOR = new Vec2();
     
@@ -158,8 +158,8 @@ public class PhysicsWorld implements ContactListener,
     private RayCastResults TEMP_RAYCAST_RESULTS = new RayCastResults();
     
     // TEMP SEARCH RESULTS
-    private static final int INITIAL_SEARCH_RESULTS_CAPACITY = 32;
-    private SearchResults TEMP_SEARCH_RESULTS = new SearchResults(INITIAL_SEARCH_RESULTS_CAPACITY);
+    private static final int SEARCH_RESULTS_INITIAL_CAPACITY = 32;
+    private SearchResults TEMP_SEARCH_RESULTS = new SearchResults(SEARCH_RESULTS_INITIAL_CAPACITY);
     private AABB TEMP_AABB = new AABB();
     
     private World mWorld;
@@ -183,7 +183,7 @@ public class PhysicsWorld implements ContactListener,
     
     public PhysicsWorld(Vec2 gravity) {
         mWorld = new World(gravity);
-        mPhysicsConnectors = new ArrayList<PhysicsConnector>(DEFAULT_CONNECTORS_CAPACITY);
+        mPhysicsConnectors = new ArrayList<PhysicsConnector>(CONNECTORS_INITIAL_CAPACITY);
         mContactListener = DEFAULT_CONTACT_LISTENER;
         mWorld.setContactListener(this);
         
@@ -361,6 +361,7 @@ public class PhysicsWorld implements ContactListener,
     }
     
     public void destroyEntity(PhysicsEntity entity) {
+        unregisterConnector(entity);
         mWorld.destroyBody(entity.mBody);
     }
     
@@ -370,6 +371,8 @@ public class PhysicsWorld implements ContactListener,
         while ((body = mWorld.getBodyList()) != null) {
             mWorld.destroyBody(body);
         }
+        
+        mPhysicsConnectors.clear();
     }
     
     public void registerConnector(PhysicsEntity entity, IAreaShape shape) {

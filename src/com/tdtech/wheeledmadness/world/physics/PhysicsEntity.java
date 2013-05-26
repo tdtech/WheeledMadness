@@ -71,6 +71,10 @@ public final class PhysicsEntity implements INetworkObject {
         return XMath.wrapAngle(MathUtils.radToDeg(mBody.getAngle()));
     }
     
+    public final float getMass() {
+        return mBody.getMass();
+    }
+    
     public final Object getUserData() {
         return mUserData;
     }

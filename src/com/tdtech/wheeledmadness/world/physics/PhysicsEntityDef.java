@@ -30,6 +30,7 @@ public class PhysicsEntityDef {
     public Object mUserData;
     
     public PhysicsEntityDef() {
+        mPosition = new Vec2();
         mAngle = 0;
         mFrameRadius = 0;
         mType = PhysicsEntityType.STATIC;
