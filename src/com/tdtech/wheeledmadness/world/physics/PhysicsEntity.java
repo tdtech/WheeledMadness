@@ -27,6 +27,7 @@ public final class PhysicsEntity implements INetworkObject {
     }
     
     Body mBody;
+    PhysicsConnector mConnector;
     
     private Vec2 mCenter;
     private Object mUserData;
@@ -34,6 +35,8 @@ public final class PhysicsEntity implements INetworkObject {
     PhysicsEntity(Body body, Object userData) {
         mBody = body;
         mUserData = userData;
+        
+        mConnector = null;
     }
     
     public final void setActive(boolean active) {

@@ -376,15 +376,17 @@ public class PhysicsWorld implements ContactListener,
     }
     
     public void registerConnector(PhysicsEntity entity, IAreaShape shape) {
-        mPhysicsConnectors.add(new PhysicsConnector(shape, entity.mBody));
+        // unregister previous connector
+        unregisterConnector(entity);
+        
+        entity.mConnector = new PhysicsConnector(shape, entity.mBody);
+        mPhysicsConnectors.add(entity.mConnector);
     }
     
     public void unregisterConnector(PhysicsEntity entity) {
-        for (PhysicsConnector connector : mPhysicsConnectors) {
-            if (connector.getBody() == entity.mBody) {
-                mPhysicsConnectors.remove(connector);
-                break;
-            }
+        if (entity.mConnector != null) {
+            mPhysicsConnectors.remove(entity.mConnector);
+            entity.mConnector = null;
         }
     }
     
