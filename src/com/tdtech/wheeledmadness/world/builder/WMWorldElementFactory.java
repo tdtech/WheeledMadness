@@ -26,11 +26,11 @@ class WMWorldElementFactory {
         IWMWorldElement element = elementsCache.get(localName);
         
         if (element == null) {
-            if (localName.equals(WMWorldElementType.VERTEX)) {
+            if (localName.equals(WMWorldElementType.VERTEX.toString())) {
                 element = new WMWorldVertexElement();
-            } else if (localName.equals(WMWorldElementType.LINE)) {
+            } else if (localName.equals(WMWorldElementType.LINE.toString())) {
                 element = new WMWorldLineElement();
-            } else if (localName.equals(WMWorldElementType.CHAIN)) {
+            } else if (localName.equals(WMWorldElementType.CHAIN.toString())) {
                 element = new WMWorldChainElement();
             } else {
                 element = mStubElement;
