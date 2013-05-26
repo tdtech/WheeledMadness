@@ -2,28 +2,28 @@ package com.tdtech.wheeledmadness.world.builder;
 
 import java.util.HashMap;
 
-import com.tdtech.wheeledmadness.world.builder.WMWorldElement.WMWorldElementType;
+import com.tdtech.wheeledmadness.world.builder.IWMWorldElement.WMWorldElementType;
 
 import android.util.SparseArray;
 
 class WMWorldElementFactory {
     
-    private SparseArray<HashMap<String, WMWorldElement>> mDeepCache;
+    private SparseArray<HashMap<String, IWMWorldElement>> mDeepCache;
     private WMWorldStubElement mStubElement;
     
     WMWorldElementFactory() {
-        mDeepCache = new SparseArray<HashMap<String, WMWorldElement>>();
+        mDeepCache = new SparseArray<HashMap<String, IWMWorldElement>>();
         mStubElement = new WMWorldStubElement();
     }
     
-    WMWorldElement getElementByName(String localName, int deep) {
-        HashMap<String, WMWorldElement> elementsCache = mDeepCache.get(deep);
+    IWMWorldElement getElementByName(String localName, int deep) {
+        HashMap<String, IWMWorldElement> elementsCache = mDeepCache.get(deep);
         if (elementsCache == null) {
-            elementsCache = new HashMap<String, WMWorldElement>();
+            elementsCache = new HashMap<String, IWMWorldElement>();
             mDeepCache.put(deep, elementsCache);
         }
         
-        WMWorldElement element = elementsCache.get(localName);
+        IWMWorldElement element = elementsCache.get(localName);
         
         if (element == null) {
             if (localName.equals(WMWorldElementType.VERTEX)) {
@@ -42,7 +42,7 @@ class WMWorldElementFactory {
         return element;
     }
     
-    WMWorldElement getStubElement() {
+    IWMWorldElement getStubElement() {
         return mStubElement;
     }
     

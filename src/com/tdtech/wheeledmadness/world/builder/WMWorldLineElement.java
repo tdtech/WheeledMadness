@@ -8,7 +8,7 @@ import com.tdtech.wheeledmadness.world.WMWorld;
 import com.tdtech.wheeledmadness.world.physics.PhysicsEntityDef;
 import com.tdtech.wheeledmadness.world.physics.PhysicsWorld;
 
-class WMWorldLineElement implements WMWorldElement {
+class WMWorldLineElement implements IWMWorldElement {
 
     private static PhysicsEntityDef TEMP_ENTITY_DEF = new PhysicsEntityDef();
     
@@ -49,7 +49,7 @@ class WMWorldLineElement implements WMWorldElement {
     }
 
     @Override
-    public void parseInnerElement(WMWorldElement element) {
+    public void parseInnerElement(IWMWorldElement element) {
         // line has no inner elements
     }
 

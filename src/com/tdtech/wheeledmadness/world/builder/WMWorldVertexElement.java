@@ -6,7 +6,7 @@ import org.xml.sax.Attributes;
 import com.tdtech.wheeledmadness.log.WMLog;
 import com.tdtech.wheeledmadness.world.WMWorld;
 
-class WMWorldVertexElement implements WMWorldElement {
+class WMWorldVertexElement implements IWMWorldElement {
 
     Vec2 mOrigin;
     
@@ -30,7 +30,7 @@ class WMWorldVertexElement implements WMWorldElement {
     }
 
     @Override
-    public void parseInnerElement(WMWorldElement element) {
+    public void parseInnerElement(IWMWorldElement element) {
         // vertex has no inner elements
     }
 

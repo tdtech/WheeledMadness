@@ -4,7 +4,7 @@ import org.xml.sax.Attributes;
 
 import com.tdtech.wheeledmadness.world.WMWorld;
 
-interface WMWorldElement {
+interface IWMWorldElement {
     
     enum WMWorldElementType {
         VERTEX("Vertex"),
@@ -26,7 +26,7 @@ interface WMWorldElement {
     WMWorldElementType getElementType();
     
     void parseAttributes(Attributes attrs);
-    void parseInnerElement(WMWorldElement element);
+    void parseInnerElement(IWMWorldElement element);
     
     void postToWorld(WMWorld world);
 }

@@ -4,7 +4,7 @@ import org.xml.sax.Attributes;
 
 import com.tdtech.wheeledmadness.world.WMWorld;
 
-class WMWorldStubElement implements WMWorldElement {
+class WMWorldStubElement implements IWMWorldElement {
 
     @Override
     public WMWorldElementType getElementType() {
@@ -17,7 +17,7 @@ class WMWorldStubElement implements WMWorldElement {
     }
 
     @Override
-    public void parseInnerElement(WMWorldElement element) {
+    public void parseInnerElement(IWMWorldElement element) {
         // stub
     }
 

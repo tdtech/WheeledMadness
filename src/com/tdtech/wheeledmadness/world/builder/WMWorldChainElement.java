@@ -11,7 +11,7 @@ import com.tdtech.wheeledmadness.world.WMWorld;
 import com.tdtech.wheeledmadness.world.physics.PhysicsEntityDef;
 import com.tdtech.wheeledmadness.world.physics.PhysicsWorld;
 
-class WMWorldChainElement implements WMWorldElement {
+class WMWorldChainElement implements IWMWorldElement {
 
     int mColor;
     
@@ -46,7 +46,7 @@ class WMWorldChainElement implements WMWorldElement {
     }
 
     @Override
-    public void parseInnerElement(WMWorldElement element) {
+    public void parseInnerElement(IWMWorldElement element) {
         if (element.getElementType() == WMWorldElementType.VERTEX) {
             WMWorldVertexElement vertex = (WMWorldVertexElement)element;
             

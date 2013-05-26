@@ -24,7 +24,7 @@ public class WMWorldBuilder extends DefaultHandler {
     private int mDeep;
     
     private WMWorldElementFactory mElementFactory;
-    private Stack<WMWorldElement> mElementStack;
+    private Stack<IWMWorldElement> mElementStack;
     
     private boolean mBuilt;
     
@@ -39,7 +39,7 @@ public class WMWorldBuilder extends DefaultHandler {
         
         mWorld = world;
         mElementFactory = new WMWorldElementFactory();
-        mElementStack = new Stack<WMWorldElement>();
+        mElementStack = new Stack<IWMWorldElement>();
         
         // avoid EmptyStackException
         mElementStack.push(mElementFactory.getStubElement());
@@ -74,7 +74,7 @@ public class WMWorldBuilder extends DefaultHandler {
     
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        WMWorldElement element = mElementFactory.getElementByName(localName, mDeep);
+        IWMWorldElement element = mElementFactory.getElementByName(localName, mDeep);
         
         element.parseAttributes(attributes);
         
@@ -84,7 +84,7 @@ public class WMWorldBuilder extends DefaultHandler {
     
     @Override
     public void endElement(String uri, String localName, String qName) {
-        WMWorldElement element = mElementStack.pop();
+        IWMWorldElement element = mElementStack.pop();
         
         element.postToWorld(mWorld);
         // pass element to its parent
