@@ -12,7 +12,7 @@ class WMWorldStubElement implements IWMWorldElement {
     }
 
     @Override
-    public void parseAttributes(Attributes attrs) {
+    public void parse(Attributes attrs, IWMWorldElement parent) {
         // stub
     }
 

@@ -16,27 +16,31 @@ class WMWorldElementFactory {
         mStubElement = new WMWorldStubElement();
     }
     
-    IWMWorldElement getElementByName(String localName, int deep) {
+    IWMWorldElement getElementByName(String name, int deep) {
         HashMap<String, IWMWorldElement> elementsCache = mDeepCache.get(deep);
         if (elementsCache == null) {
             elementsCache = new HashMap<String, IWMWorldElement>();
             mDeepCache.put(deep, elementsCache);
         }
         
-        IWMWorldElement element = elementsCache.get(localName);
+        IWMWorldElement element = elementsCache.get(name);
         
         if (element == null) {
-            if (localName.equals(WMWorldElementType.VERTEX.toString())) {
+            if (name.equals(WMWorldElementType.VERTEX.toString())) {
                 element = new WMWorldVertexElement();
-            } else if (localName.equals(WMWorldElementType.LINE.toString())) {
+            } else if (name.equals(WMWorldElementType.GHOST_VERTEX.toString())) {
+                element = new WMWorldGhostVertexElement();
+            } else if (name.equals(WMWorldElementType.LINE.toString())) {
                 element = new WMWorldLineElement();
-            } else if (localName.equals(WMWorldElementType.CHAIN.toString())) {
+            } else if (name.equals(WMWorldElementType.CHAIN.toString())) {
                 element = new WMWorldChainElement();
+            } else if (name.equals(WMWorldElementType.LINE_BATCH.toString())) {
+                element = new WMWorldLineBatchElement();
             } else {
                 element = mStubElement;
             }
             
-            elementsCache.put(localName, element);
+            elementsCache.put(name, element);
         }
         
         return element;

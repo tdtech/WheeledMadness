@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.scene.Scene;
 import org.jbox2d.common.Vec2;
 
 import com.tdtech.wheeledmadness.world.physics.PhysicsEntity;
@@ -33,11 +34,13 @@ public class WMWorld implements IUpdateHandler, PhysicsWorld.IContactListener {
     
     private Engine mEngine;
     private PhysicsWorld mPhysicsWorld;
+    private Scene mScene;
     private ArrayList<WMWorldEntity> mEntities;
     
     private WMWorld(Engine engine) {
         mEngine = engine;
         mPhysicsWorld = new PhysicsWorld(GRAVITY);
+        mScene = new Scene();
         mEntities = new ArrayList<WMWorldEntity>(ENTITIES_INITIAL_CAPACITY);
     }
     
@@ -53,8 +56,16 @@ public class WMWorld implements IUpdateHandler, PhysicsWorld.IContactListener {
         return mInstance;
     }
     
-    public PhysicsWorld getPhysics() {
+    public Engine getEngine() {
+        return mEngine;
+    }
+    
+    public PhysicsWorld getWorldPhysics() {
         return mPhysicsWorld;
+    }
+    
+    public Scene getWorldScene() {
+        return mScene;
     }
     
     public void registerEntity(WMWorldEntity entity, WMWorldEntityDef entityDef) {

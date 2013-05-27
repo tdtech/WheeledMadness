@@ -76,7 +76,7 @@ public class WMWorldBuilder extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         IWMWorldElement element = mElementFactory.getElementByName(localName, mDeep);
         
-        element.parseAttributes(attributes);
+        element.parse(attributes, null);
         
         mElementStack.push(element);
         mDeep++;
@@ -86,9 +86,9 @@ public class WMWorldBuilder extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) {
         IWMWorldElement element = mElementStack.pop();
         
-        element.postToWorld(mWorld);
         // pass element to its parent
         mElementStack.peek().parseInnerElement(element);
+        element.postToWorld(mWorld);
         
         mDeep--;
     }

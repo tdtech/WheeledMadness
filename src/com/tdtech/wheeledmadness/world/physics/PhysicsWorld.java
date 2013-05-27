@@ -334,7 +334,7 @@ public class PhysicsWorld implements ContactListener,
         return entity;
     }
     
-    public PhysicsEntity createChainEntity(PhysicsEntityDef entityDef, Vec2[] vertices, boolean loop) {
+    public PhysicsEntity createChainEntity(PhysicsEntityDef entityDef, Vec2[] vertices, boolean loop, Vec2 nextGhostVertex, Vec2 prevGhostVertex) {
         Body body = createBody(entityDef);
         
         PhysicsEntity entity = new PhysicsEntity(body, entityDef.mUserData);
@@ -349,6 +349,16 @@ public class PhysicsWorld implements ContactListener,
             TEMP_CHAIN_SHAPE.createLoop(chain, chain.length);
         } else {
             TEMP_CHAIN_SHAPE.createChain(chain, chain.length);
+            
+            TEMP_CHAIN_SHAPE.m_hasPrevVertex = (prevGhostVertex != null);
+            TEMP_CHAIN_SHAPE.m_hasNextVertex = (nextGhostVertex != null);
+            
+            if (TEMP_CHAIN_SHAPE.m_hasPrevVertex) {
+                TEMP_CHAIN_SHAPE.m_prevVertex.set(prevGhostVertex);
+            }
+            if (TEMP_CHAIN_SHAPE.m_hasNextVertex) {
+                TEMP_CHAIN_SHAPE.m_nextVertex.set(nextGhostVertex);
+            }
         }
         TEMP_FIXTURE_DEF.shape = TEMP_CHAIN_SHAPE;
         

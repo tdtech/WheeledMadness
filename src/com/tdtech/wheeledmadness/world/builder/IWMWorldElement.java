@@ -8,8 +8,10 @@ interface IWMWorldElement {
     
     enum WMWorldElementType {
         VERTEX("Vertex"),
+        GHOST_VERTEX("GhostVertex"),
         LINE("Line"),
-        CHAIN("Chain");
+        CHAIN("Chain"),
+        LINE_BATCH("LineBatch");
         
         private String mLocalName;
         
@@ -25,7 +27,7 @@ interface IWMWorldElement {
     
     WMWorldElementType getElementType();
     
-    void parseAttributes(Attributes attrs);
+    void parse(Attributes attrs, IWMWorldElement parent);
     void parseInnerElement(IWMWorldElement element);
     
     void postToWorld(WMWorld world);
