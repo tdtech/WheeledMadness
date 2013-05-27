@@ -76,7 +76,7 @@ public class WMWorldBuilder extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         IWMWorldElement element = mElementFactory.getElementByName(localName, mDeep);
         
-        element.parse(attributes, null);
+        element.parse(attributes, mElementStack.peek());
         
         mElementStack.push(element);
         mDeep++;
