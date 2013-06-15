@@ -2,14 +2,14 @@ package com.tdtech.wheeledmadness.world;
 
 import org.andengine.engine.camera.ZoomCamera;
 
-public class WorldCamera extends ZoomCamera {
+public class WMWorldCamera extends ZoomCamera {
 
     public static final int WIDTH = 720;
     public static final int HEIGHT = 480;
     
     private float mShakeMagnitude = 0;
     
-    public WorldCamera() {
+    public WMWorldCamera() {
         super(0, 0, WIDTH, HEIGHT);
     }
     

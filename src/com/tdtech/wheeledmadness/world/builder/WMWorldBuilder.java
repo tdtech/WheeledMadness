@@ -1,7 +1,8 @@
 package com.tdtech.wheeledmadness.world.builder;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Stack;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -45,7 +46,7 @@ public class WMWorldBuilder extends DefaultHandler {
         mElementStack.push(mElementFactory.getStubElement());
     }
     
-    public boolean buildFromXML(String xmlPath) {
+    public boolean buildFromXML(InputStream is) {
         if (mXMLParser == null) {
             // something really wrong here
             return false;
@@ -54,16 +55,38 @@ public class WMWorldBuilder extends DefaultHandler {
         mBuilt = true;
         
         try {
-            mXMLParser.parse(new File(xmlPath), this);
+            mXMLParser.parse(is, this);
         } catch (SAXException e) {
             WMLog.e("Error while parsing XML file: " + e.toString());
             mBuilt = false;
         } catch (IOException e) {
-            WMLog.e("Error while parsing XML file: " + e.toString());
+            WMLog.e("Error while reading XML file: " + e.toString());
             mBuilt = false;
         }
         
         return mBuilt;
+    }
+    
+    public boolean buildFromXML(String fileName) {
+    	boolean built = true;
+    	FileInputStream fis = null;
+    	
+    	try {
+    		fis = new FileInputStream(fileName);
+    		built = buildFromXML(fis);
+    	} catch (IOException e) {
+    		WMLog.e("Error while reading XML file: " + e.toString());
+    		built = false;
+    	} finally {
+    		if (fis != null) {
+    			try {
+					fis.close();
+				} catch (IOException e) {
+				}
+    		}
+    	}
+    	
+    	return built;
     }
     
     @Override

@@ -69,19 +69,23 @@ class WMWorldLineBatchElement implements IWMWorldElement {
         if (linesCount > 0) {
             LineBatch lineBatch = new LineBatch(linesCount, mLineWidth, world.getEngine().getVertexBufferObjectManager());
             
-            Color color = new Color(0, 0, 0);
+            Color color = new Color(0, 0, 0, 1);
+            float a, r, g, b;
             
             for (LineHolder holder : mLines) {
-                color.setAlpha(ColorUtils.extractAlphaFromARGBPackedInt(holder.mColor));
-                color.setRed(ColorUtils.extractRedFromARGBPackedInt(holder.mColor));
-                color.setGreen(ColorUtils.extractGreenFromARGBPackedInt(holder.mColor));
-                color.setBlue(ColorUtils.extractBlueFromARGBPackedInt(holder.mColor));
+            	a = ColorUtils.extractAlphaFromARGBPackedInt(holder.mColor);
+                r = ColorUtils.extractRedFromARGBPackedInt(holder.mColor);
+                g = ColorUtils.extractGreenFromARGBPackedInt(holder.mColor);
+                b = ColorUtils.extractBlueFromARGBPackedInt(holder.mColor);
+                
+                color.set(r, g, b, a);
                 
                 lineBatch.addLine(holder.mStart.x, holder.mStart.y,
                         holder.mEnd.x, holder.mEnd.y, color);
                 
                 LINE_BUFFER.push(holder);
             }
+            lineBatch.submit();
             
             world.getWorldScene().attachChild(lineBatch);
             

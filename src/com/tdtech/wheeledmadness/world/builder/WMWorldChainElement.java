@@ -94,32 +94,41 @@ class WMWorldChainElement implements IWMWorldElement {
         if (chainSize > 1) {
             // post only valid chain
             PhysicsWorld physics = world.getWorldPhysics();
+            boolean hasLoop = mLoop && (chainSize > 2);
         
+            Vec2[] vertices = new Vec2[chainSize];
+            for (int i = 0; i < chainSize; i++) {
+            	vertices[i] = mChain.get(i).mVertex;
+            }
+            
             TEMP_ENTITY_DEF.mFriction = mFriction;
             TEMP_ENTITY_DEF.mRestitution = mRestitution;
-            physics.createChainEntity(TEMP_ENTITY_DEF, (Vec2[])mChain.toArray(), mLoop,
+            physics.createChainEntity(TEMP_ENTITY_DEF, vertices, hasLoop,
                     mHasLeftGhostVertex ? mLeftGhostVertex : null,
                     mHasRightGhostVertex ? mRightGhostVertex : null);
             
             if (!mHasLineBatchParent) {
-                LineBatch lineBatch = new LineBatch(mChain.size(), mLineWidth, world.getEngine().getVertexBufferObjectManager());
+                LineBatch lineBatch = new LineBatch(chainSize - (hasLoop ? 0 : 1), mLineWidth, world.getEngine().getVertexBufferObjectManager());
                 
                 ChainHolder holder = mChain.get(0);
                 
                 Vec2 start = holder.mVertex;
                 int argb = holder.mColor;
                 
-                Color color = new Color(0, 0, 0);
+                Color color = new Color(0, 0, 0, 1);
+                float a, r, g, b;
                 
                 for (int i = 1; i < chainSize; i++) {
                     holder = mChain.get(i);
                     
                     Vec2 end = holder.mVertex;
                     
-                    color.setAlpha(ColorUtils.extractAlphaFromARGBPackedInt(argb));
-                    color.setRed(ColorUtils.extractRedFromARGBPackedInt(argb));
-                    color.setGreen(ColorUtils.extractGreenFromARGBPackedInt(argb));
-                    color.setBlue(ColorUtils.extractBlueFromARGBPackedInt(argb));
+                    a = ColorUtils.extractAlphaFromARGBPackedInt(argb);
+                    r = ColorUtils.extractRedFromARGBPackedInt(argb);
+                    g = ColorUtils.extractGreenFromARGBPackedInt(argb);
+                    b = ColorUtils.extractBlueFromARGBPackedInt(argb);
+                    
+                    color.set(r, g, b, a);
                     
                     lineBatch.addLine(start.x, start.y, end.x, end.y, color);
                     
@@ -127,16 +136,20 @@ class WMWorldChainElement implements IWMWorldElement {
                     argb = holder.mColor;
                 }
                 
-                if (mLoop && chainSize > 2) {
+                if (hasLoop) {
                     Vec2 end = mChain.get(0).mVertex;
                     
-                    color.setAlpha(ColorUtils.extractAlphaFromARGBPackedInt(argb));
-                    color.setRed(ColorUtils.extractRedFromARGBPackedInt(argb));
-                    color.setGreen(ColorUtils.extractGreenFromARGBPackedInt(argb));
-                    color.setBlue(ColorUtils.extractBlueFromARGBPackedInt(argb));
+                    a = ColorUtils.extractAlphaFromARGBPackedInt(argb);
+                    r = ColorUtils.extractRedFromARGBPackedInt(argb);
+                    g = ColorUtils.extractGreenFromARGBPackedInt(argb);
+                    b = ColorUtils.extractBlueFromARGBPackedInt(argb);
+                    
+                    color.set(r, g, b, a);
                     
                     lineBatch.addLine(start.x, start.y, end.x, end.y, color);
                 }
+                
+                lineBatch.submit();
                 
                 world.getWorldScene().attachChild(lineBatch);
             }

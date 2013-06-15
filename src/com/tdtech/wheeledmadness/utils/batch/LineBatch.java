@@ -20,6 +20,7 @@ public class LineBatch extends Line {
     
     public LineBatch(final int pCapacity, final float pLineWidth, final VertexBufferObjectManager pVertextBufferObjectManager) {
         super(0, 0, 0, 0, pLineWidth, new HighPerformanceLineBatchVertexBufferObject(pVertextBufferObjectManager, pCapacity * Line.LINE_SIZE, DrawType.STATIC, true, VERTEXBUFFEROBJECTATTRIBUTES_DEFAULT));
+        mCapacity = pCapacity;
         mLineBatchVBO = (HighPerformanceLineBatchVertexBufferObject)mLineVertexBufferObject;
     }
     

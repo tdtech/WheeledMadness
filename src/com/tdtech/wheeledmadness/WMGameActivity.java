@@ -9,7 +9,9 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.SimpleAsyncGameActivity;
 import org.andengine.util.progress.IProgressListener;
 
-import com.tdtech.wheeledmadness.world.WorldCamera;
+import com.tdtech.wheeledmadness.world.WMWorld;
+import com.tdtech.wheeledmadness.world.WMWorldCamera;
+import com.tdtech.wheeledmadness.world.builder.WMWorldBuilder;
 
 public class WMGameActivity extends SimpleAsyncGameActivity {
 
@@ -18,7 +20,7 @@ public class WMGameActivity extends SimpleAsyncGameActivity {
     @Override
     public EngineOptions onCreateEngineOptions() {
         EngineOptions options = new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
-                new RatioResolutionPolicy(WorldCamera.WIDTH, WorldCamera.HEIGHT), new WorldCamera());
+                new RatioResolutionPolicy(WMWorldCamera.WIDTH, WMWorldCamera.HEIGHT), new WMWorldCamera());
         
         options.getTouchOptions().setNeedsMultiTouch(true);
         
@@ -39,7 +41,14 @@ public class WMGameActivity extends SimpleAsyncGameActivity {
     @Override
     public Scene onCreateSceneAsync(IProgressListener pProgressListener)
             throws Exception {
-        return null;
+        WMWorld.init(getEngine());
+        
+        WMWorld world = WMWorld.getInstance();
+        
+        WMWorldBuilder builder = new WMWorldBuilder(world);
+        builder.buildFromXML(getAssets().open("level.xml"));
+        
+        return world.getWorldScene();
     }
 
     @Override

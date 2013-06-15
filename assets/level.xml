@@ -1,0 +1,30 @@
+<LineBatch
+    line_width="2">
+<Line
+    line_width="6"
+    color="blue"
+    startX="0"
+    startY="0"
+    endX="200"
+    endY="200">
+</Line>
+<Chain
+    line_width="2"
+    loop="true">
+    
+    <Vertex
+        originX="200"
+        originY="200"
+        color="blue"/>
+        
+    <Vertex
+        originX="300"
+        originY="200"
+        color="green"/>
+        
+    <Vertex
+        originX="400"
+        originY="100"
+        color="red"/>
+</Chain>
+</LineBatch>
